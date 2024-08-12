@@ -7,9 +7,9 @@ function App() {
 
   return (
     
-    <UserContext.Provider value={userData}>
+    UserContext.Provider value={userData}
       <ProfilePage />
-    </UserContext.Provider>
+    UserContext.Provider
   );
 }
 
