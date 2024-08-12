@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import ProfilePage from './ProfilePage';
-import UserContext from './UserContext';
+
+const UserContext = createContext(null);
 
 const userData = { name: "Jane Doe", email: "jane.doe@example.com" };
 
