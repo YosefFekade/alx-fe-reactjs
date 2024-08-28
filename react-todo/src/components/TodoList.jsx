@@ -3,42 +3,33 @@ import React, { useState } from 'react';
 const TodoList = () => {
   const [todos, setTodos] = useState([
     { id: 1, text: 'Finish Alx project', completed: false },
-    { id: 2, text: 'Learn vue', completed: false },
-    { id: 3, text: 'Build a Todo List', completed: false },
+    { id: 2, text: 'Learn React', completed: false },
+    { id: 3, text: 'Build a Todo App', completed: false },
   ]);
-  const [newTodo, setNewTodo] = useState('');
 
-  const addTodo = (e) => {
-    e.preventDefault();
-    if (newTodo.trim() === '') return;
-    setTodos([...todos, { id: Date.now(), text: newTodo, completed: false }]);
-    setNewTodo('');
+  const addTodo = (text) => {
+    const newTodo = { id: Date.now(), text, completed: false };
+    setTodos([...todos, newTodo]);
   };
 
   const toggleTodo = (id) => {
-    setTodos(todos.map(todo =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ));
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
   };
 
   const deleteTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== id));
+    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   return (
     <div>
       <h1>Todo List</h1>
-      <form onSubmit={addTodo}>
-        <input
-          type="text"
-          value={newTodo}
-          onChange={(e) => setNewTodo(e.target.value)}
-          placeholder="Add a new todo"
-        />
-        <button type="submit">Add</button>
-      </form>
+      <AddTodoForm addTodo={addTodo} />
       <ul>
-        {todos.map(todo => (
+        {todos.map((todo) => (
           <li
             key={todo.id}
             onClick={() => toggleTodo(todo.id)}
@@ -50,6 +41,29 @@ const TodoList = () => {
         ))}
       </ul>
     </div>
+  );
+};
+
+const AddTodoForm = ({ addTodo }) => {
+  const [text, setText] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (text.trim()) {
+      addTodo(text);
+      setText('');
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <button type="submit">Add Todo</button>
+    </form>
   );
 };
 
