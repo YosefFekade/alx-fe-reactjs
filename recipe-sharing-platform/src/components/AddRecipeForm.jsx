@@ -7,7 +7,7 @@ const AddRecipeForm = () => {
   const [error, setError] = useState('');
 
 
-  const validate = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!title || !ingredients || !steps) {
       setError('Please fill in all fields.');
@@ -19,7 +19,7 @@ const AddRecipeForm = () => {
       return;
     }
     setError('');
-
+    
     setTitle('');
     setIngredients('');
     setSteps('');
@@ -29,7 +29,7 @@ const AddRecipeForm = () => {
     <div className="max-w-xl mx-auto p-4 sm:p-6 bg-white rounded shadow-md">
       <h2 className="text-2xl font-bold mb-4 text-center">Add New Recipe</h2>
       {error && <p className="text-red-500 mb-4">{error}</p>}
-      <form onSubmit={validate}>
+      <form onSubmit={handleSubmit}>
         {/* Recipe Title */}
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="title">
