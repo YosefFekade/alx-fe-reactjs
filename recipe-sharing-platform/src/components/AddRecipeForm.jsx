@@ -6,30 +6,20 @@ const AddRecipeForm = () => {
   const [steps, setSteps] = useState('');
   const [error, setError] = useState('');
 
-  // Function to handle form submission
-  const handleSubmit = (e) => {
+
+  const validate = (e) => {
     e.preventDefault();
-    
-    // Validation: Check if all fields are filled out
     if (!title || !ingredients || !steps) {
       setError('Please fill in all fields.');
       return;
     }
-
-    // Additional Validation: Check if ingredients list has at least two items
     const ingredientsArray = ingredients.split(',');
     if (ingredientsArray.length < 2) {
       setError('Please provide at least two ingredients.');
       return;
     }
-
-    // If all validations pass, clear the error and proceed with form submission
     setError('');
 
-    // Form submission logic (e.g., send data to API or update state)
-    console.log('New Recipe:', { title, ingredients: ingredientsArray, steps });
-
-    // Clear form fields after submission
     setTitle('');
     setIngredients('');
     setSteps('');
@@ -39,7 +29,7 @@ const AddRecipeForm = () => {
     <div className="max-w-xl mx-auto p-4 sm:p-6 bg-white rounded shadow-md">
       <h2 className="text-2xl font-bold mb-4 text-center">Add New Recipe</h2>
       {error && <p className="text-red-500 mb-4">{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={validate}>
         {/* Recipe Title */}
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="title">
