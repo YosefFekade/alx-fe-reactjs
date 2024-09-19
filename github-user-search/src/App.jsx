@@ -16,7 +16,7 @@ function App() {
       const userData = await fetchUserData(username);
       setUser(userData);
     } catch (err) {
-      setError(err.message);
+      setError('Looks like we can\'t find the user');
     } finally {
       setLoading(false);
     }
@@ -25,19 +25,12 @@ function App() {
   return (
     <div>
       <h1>GitHub User Search Application</h1>
-      <Search onSearch={handleSearch} />
-      {loading && <p>Loading...</p>}
-      {error && <p>Looks like we can't find the user</p>}
-      {user && (
-        <div>
-          <img src={user.avatar_url} alt={user.login} width="100" />
-          <p>Name: {user.name}</p>
-          <p>Username: {user.login}</p>
-          <a href={user.html_url} target="_blank" rel="noopener noreferrer">
-            View GitHub Profile
-          </a>
-        </div>
-      )}
+      <Search
+        onSearch={handleSearch}
+        user={user}
+        loading={loading}
+        error={error}
+      />
     </div>
   );
 }
